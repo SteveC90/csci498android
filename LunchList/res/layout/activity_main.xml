@@ -13,12 +13,14 @@
 
         <TextView
             android:id="@+id/textView1"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name:" />
 
         <EditText
             android:id="@+id/name"
+            android:textColor="#00FF00"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,12 +40,14 @@
 
         <TextView
             android:id="@+id/textView2"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Address:" />
 
         <EditText
             android:id="@+id/addr"
+            android:textColor="#00FF00"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
