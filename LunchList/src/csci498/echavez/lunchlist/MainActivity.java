@@ -6,18 +6,15 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 public class MainActivity extends Activity {
 	
 	List<Restaurant> model = new ArrayList<Restaurant>();
 	ArrayAdapter<Restaurant> adapter=null;
-	AutoCompleteTextView autotext;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,13 +25,12 @@ public class MainActivity extends Activity {
         
         save.setOnClickListener(onSave);
         
-        Spinner list=(Spinner)findViewById(R.id.restaurants);
+        ListView list=(ListView)findViewById(R.id.restaurants);
         
         adapter=new ArrayAdapter<Restaurant>(this, android.R.layout.simple_expandable_list_item_1, model);
         
         list.setAdapter(adapter);
         
-        autotext=(AutoCompleteTextView)findViewById(R.id.addr);
     }
 
    private View.OnClickListener onSave=new View.OnClickListener() {
@@ -62,7 +58,6 @@ public class MainActivity extends Activity {
 					break;
 			}
 			adapter.add(r);
-			autotext.setAdapter(adapter);
 		}
    };
 }
