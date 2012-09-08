@@ -21,33 +21,6 @@ public class MainActivity extends Activity {
 	List<Restaurant> model = new ArrayList<Restaurant>();
 	ArrayAdapter<Restaurant> adapter=null;
 	
-	class RestaurantAdapter extends ArrayAdapter<Restaurant>{
-		RestaurantAdapter(){
-			super(MainActivity.this, android.R.layout.simple_list_item_1, model);
-		}
-		
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View row=convertView;
-			if (row==null) {
-				LayoutInflater inflater=getLayoutInflater();
-				row=inflater.inflate(R.layout.row, null);
-			}
-			Restaurant r=model.get(position);
-			
-			((TextView)row.findViewById(R.id.title)).setText(r.getName());
-			((TextView)row.findViewById(R.id.address)).setText(r.getAddress());
-			ImageView icon=(ImageView)row.findViewById(R.id.icon);
-			if (r.getType().equals("sit_down")) {
-				icon.setImageResource(R.drawable.ball_red);
-			} else if (r.getType().equals("take_out")) {
-				icon.setImageResource(R.drawable.ball_yellow);
-			} else {
-				icon.setImageResource(R.drawable.ball_green);
-			}
-			return(row);
-		}
-	}
-	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +32,9 @@ public class MainActivity extends Activity {
         
         ListView list=(ListView)findViewById(R.id.restaurants);
         
-        adapter=new ArrayAdapter<Restaurant>(this, android.R.layout.simple_expandable_list_item_1, model);
+        adapter=new RestaurantAdapter();
         
         list.setAdapter(adapter);
-        
     }
 
    private View.OnClickListener onSave=new View.OnClickListener() {
@@ -92,4 +64,66 @@ public class MainActivity extends Activity {
 			adapter.add(r);
 		}
    };
+   
+   class RestaurantAdapter extends ArrayAdapter<Restaurant>{
+		RestaurantAdapter(){
+			super(MainActivity.this, R.layout.row, model);
+		}
+		
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View row=convertView;
+			RestaurantHolder holder = null;
+			if (row==null) {
+				LayoutInflater inflater=getLayoutInflater();
+				row=inflater.inflate(R.layout.row, parent, false);
+				holder = new RestaurantHolder(row);
+				row.setTag(holder);
+			} else {
+				holder = (RestaurantHolder)row.getTag();
+			}
+			
+			holder.populateFrom(model.get(position));
+			
+			return row;
+			
+			/*Restaurant r=model.get(position);
+			
+			((TextView)row.findViewById(R.id.title)).setText(r.getName());
+			((TextView)row.findViewById(R.id.address)).setText(r.getAddress());
+			ImageView icon=(ImageView)row.findViewById(R.id.icon);
+			if (r.getType().equals("sit_down")) {
+				icon.setImageResource(R.drawable.ball_red);
+			} else if (r.getType().equals("take_out")) {
+				icon.setImageResource(R.drawable.ball_yellow);
+			} else {
+				icon.setImageResource(R.drawable.ball_green);
+			}
+			return(row);*/
+		}
+	}
+	
+	static class RestaurantHolder{
+		private TextView name = null;
+		private TextView address = null;
+		private ImageView icon = null;
+		
+		RestaurantHolder(View row){
+			name = (TextView)row.findViewById(R.id.title);
+			address = (TextView)row.findViewById(R.id.address);
+			icon = (ImageView)row.findViewById(R.id.icon);
+		}
+		
+		void populateFrom(Restaurant r){
+			name.setText(r.getName());
+			address.setText(r.getAddress());
+			
+			if(r.getType().equals("sit_down")){
+				icon.setImageResource(R.drawable.ball_red);
+			} else if (r.getType().equals("take_out")){
+				icon.setImageResource(R.drawable.ball_yellow);
+			} else {
+				icon.setImageResource(R.drawable.ball_green);
+			}
+		}
+	}
 }
