@@ -68,15 +68,36 @@ public class MainActivity extends Activity {
    
    class RestaurantAdapter extends ArrayAdapter<Restaurant>{
 		RestaurantAdapter(){
-			super(MainActivity.this, R.layout.row, model);
+			super(MainActivity.this, android.R.layout.simple_list_item_1, model);
+		}
+		
+		public int getViewTypeCount(){
+			return 3;
+		}
+		
+		public int getItemViewType(int position){
+			String type = model.get(position).getType();
+			if(type=="take_out")
+				return 0;
+			else if(type=="sit_down")
+				return 1;
+			else
+				return 2;
 		}
 		
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View row=convertView;
 			RestaurantHolder holder = null;
 			if (row==null) {
-				LayoutInflater inflater=getLayoutInflater();
-				row=inflater.inflate(R.layout.row, parent, false);
+				LayoutInflater inflater = getLayoutInflater();
+				int view_type = getItemViewType(position);
+				if(view_type==0)
+					row = inflater.inflate(R.layout.row_take_out, null);
+				else if(view_type==1)
+					row = inflater.inflate(R.layout.row_sit_down, null);
+				else
+					row = inflater.inflate(R.layout.row_delivery, null);
+				
 				holder = new RestaurantHolder(row);
 				row.setTag(holder);
 			} else {
@@ -86,20 +107,6 @@ public class MainActivity extends Activity {
 			holder.populateFrom(model.get(position));
 			
 			return row;
-			
-			/*Restaurant r=model.get(position);
-			
-			((TextView)row.findViewById(R.id.title)).setText(r.getName());
-			((TextView)row.findViewById(R.id.address)).setText(r.getAddress());
-			ImageView icon=(ImageView)row.findViewById(R.id.icon);
-			if (r.getType().equals("sit_down")) {
-				icon.setImageResource(R.drawable.ball_red);
-			} else if (r.getType().equals("take_out")) {
-				icon.setImageResource(R.drawable.ball_yellow);
-			} else {
-				icon.setImageResource(R.drawable.ball_green);
-			}
-			return(row);*/
 		}
 	}
 	
