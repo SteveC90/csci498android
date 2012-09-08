@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -115,6 +116,9 @@ public class MainActivity extends Activity {
 		
 		void populateFrom(Restaurant r){
 			name.setText(r.getName());
+			if(r.getAddress().contains("Golden")){
+				name.setTextColor(Color.BLUE);
+			}
 			address.setText(r.getAddress());
 			
 			if(r.getType().equals("sit_down")){
