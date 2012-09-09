@@ -15,16 +15,27 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.app.TabActivity;
+import android.widget.TabHost;
+import android.widget.AdapterView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends TabActivity {
 	
 	List<Restaurant> model = new ArrayList<Restaurant>();
 	ArrayAdapter<Restaurant> adapter=null;
+	
+	EditText name=null;
+	EditText address=null;
+	RadioGroup types=null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        name=(EditText)findViewById(R.id.name);
+        address=(EditText)findViewById(R.id.addr);
+        types=(RadioGroup)findViewById(R.id.types);
         
         Button save = (Button)findViewById(R.id.save);
         
@@ -35,6 +46,22 @@ public class MainActivity extends Activity {
         adapter=new RestaurantAdapter();
         
         list.setAdapter(adapter);
+        
+        TabHost.TabSpec spec=getTabHost().newTabSpec("tag1");
+        
+        spec.setContent(R.id.restaurants);
+        spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
+        
+        getTabHost().addTab(spec);
+        
+        spec = getTabHost().newTabSpec("tag2");
+        spec.setContent(R.id.details);
+        spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
+        
+        getTabHost().addTab(spec);
+        getTabHost().setCurrentTab(0);
+        
+        list.setOnItemClickListener(onListClick);
     }
 
    private View.OnClickListener onSave=new View.OnClickListener() {
@@ -126,4 +153,23 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
+	
+	private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+			Restaurant r = model.get(position);
+			
+			name.setText(r.getName());
+			address.setText(r.getAddress());
+			
+			if(r.getType().equals("sit_down")){
+				types.check(R.id.sit_down);
+			} else if (r.getType().equals("take_out")){
+				types.check(R.id.take_out);
+			} else {
+				types.check(R.id.delivery);
+			}
+			
+			getTabHost().setCurrentTab(1);
+		}
+	};
 }
