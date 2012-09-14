@@ -3,14 +3,15 @@ package csci498.echavez.lunchlist;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import android.app.TabActivity;
 import android.widget.TabHost;
 import android.widget.AdapterView;
 
+@SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity {
 	
 	List<Restaurant> model = new ArrayList<Restaurant>();
@@ -35,9 +37,12 @@ public class MainActivity extends TabActivity {
 	
 	Restaurant current=null;
 	
+	int progress;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.activity_main);
         
         name = (EditText)findViewById(R.id.name);
@@ -91,6 +96,12 @@ public class MainActivity extends TabActivity {
     		}
     		
     		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    		return(true);
+    	} else if (item.getItemId()==R.id.run){
+    		setProgressBarVisibility(true);
+    		progress=0;
+    		new Thread(longTask).start();
+    		
     		return(true);
     	}
     	return super.onOptionsItemSelected(item);
@@ -185,6 +196,30 @@ public class MainActivity extends TabActivity {
 			}
 			
 			getTabHost().setCurrentTab(1);
+		}
+	};
+	
+	private void doSomeLongWork(final int incr){
+		runOnUiThread(new Runnable() {
+			public void run(){
+				progress+=incr;
+				setProgress(progress);
+			}
+		});
+		SystemClock.sleep(250);
+	}
+	
+	private Runnable longTask = new Runnable() {
+		public void run(){
+			for (int i=0; i<20; i++){
+				doSomeLongWork(500);
+			}
+			
+			runOnUiThread(new Runnable(){
+				public void run() {
+					setProgressBarVisibility(false);
+				}
+			});
 		}
 	};
 }
