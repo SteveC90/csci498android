@@ -23,6 +23,7 @@ import android.widget.Toast;
 import android.app.TabActivity;
 import android.widget.TabHost;
 import android.widget.AdapterView;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity {
@@ -38,6 +39,8 @@ public class MainActivity extends TabActivity {
 	Restaurant current=null;
 	
 	int progress;
+	
+	AtomicBoolean isActive = new AtomicBoolean(true);
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,13 +101,29 @@ public class MainActivity extends TabActivity {
     		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     		return(true);
     	} else if (item.getItemId()==R.id.run){
-    		setProgressBarVisibility(true);
-    		progress=0;
-    		new Thread(longTask).start();
+    		startWork();
     		
     		return(true);
     	}
     	return super.onOptionsItemSelected(item);
+    }
+    
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	
+    	isActive.set(false);
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	
+    	isActive.set(true);
+    	
+    	if(progress > 0){
+    		startWork();
+    	}
     }
 
    private View.OnClickListener onSave=new View.OnClickListener() {
@@ -211,15 +230,23 @@ public class MainActivity extends TabActivity {
 	
 	private Runnable longTask = new Runnable() {
 		public void run(){
-			for (int i=0; i<20; i++){
-				doSomeLongWork(500);
+			for (int i=0; i<10000 && isActive.get(); i+=200){
+				doSomeLongWork(200);
 			}
 			
-			runOnUiThread(new Runnable(){
-				public void run() {
-					setProgressBarVisibility(false);
-				}
-			});
+			if(isActive.get()){
+				runOnUiThread(new Runnable(){
+					public void run() {
+						setProgressBarVisibility(false);
+						progress=0;
+					}
+				});
+			}
 		}
 	};
+	
+	private void startWork(){
+		setProgressBarVisibility(true);
+		new Thread(longTask).start();
+	}
 }
