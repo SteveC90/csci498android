@@ -69,7 +69,7 @@ public class DetailForm extends Activity {
 		public void onClick(View v) {
 			String type = null;
 			
-			switch(types.getCheckedRadioButtonId()){
+			switch(types.getCheckedRadioButtonId()) {
 				case R.id.sit_down:
 					type = "sit_down";
 					break;
@@ -81,6 +81,13 @@ public class DetailForm extends Activity {
 					break;
 			}
 			
+			if(restaurantId == null) {
+				helper.insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString());
+			} else {
+				helper.update(restaurantId, name.getText().toString(), address.getText().toString(), type, notes.getText().toString());
+			}
+			
+			finish();
 		}
 	};
 
