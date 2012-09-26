@@ -4,14 +4,14 @@ public class Restaurant {
 	
 	private String name = "";
 	private String address = "";
-	private String type="";
-	private String notes="";
+	private String type = "";
+	private String notes = "";
 	
 	public String getName() {
 		return name;
 	}
 	
-	public void setName(String n){
+	public void setName(String n) {
 		this.name = n;
 	}
 	
@@ -19,27 +19,28 @@ public class Restaurant {
 		return address;
 	}
 	
-	public void setAddress(String addr){
+	public void setAddress(String addr) {
 		this.address = addr;
 	}
 	
-	public String getType(){
+	public String getType() {
 		return type;
 	}
 	
-	public void setType(String t){
+	public void setType(String t) {
 		this.type = t;  
 	}
 	
-	public String getNotes(){
+	public String getNotes() {
 		return notes;
 	}
 	
-	public void setNotes(String n){
+	public void setNotes(String n) {
 		this.notes = n;
 	}
 	
-	public String toString(){
+	public String toString() {
 		return getName();
 	}
+	
 }

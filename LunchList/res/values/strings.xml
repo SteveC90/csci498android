@@ -1,8 +1,16 @@
 <resources>
 
     <string name="app_name">LunchList</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Lunch List</string>
+    <string name="text_view">TextView</string>
+    <string name="name_label">Name:</string>
+    <string name="addr_label">Address:</string>
+    <string name="type_label">Type:</string>
+    <string name="notes_label">Notes:</string>
+    <string name="save">Save</string>
+    <string name="take_out">Take-out</string>
+    <string name="sit_down">Sit-Down</string>
+    <string name="delivery">Delivery</string>
 
 </resources>

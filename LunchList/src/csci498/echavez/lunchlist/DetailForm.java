@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class DetailForm extends Activity{
+public class DetailForm extends Activity {
 	
 	EditText name = null;
 	EditText address = null;
@@ -17,9 +17,8 @@ public class DetailForm extends Activity{
 	RadioGroup types = null;
 	RestaurantHelper helper = null;
 	
-	
 	@Override
-	public void onCreate(Bundle savedInstanceState){
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail_form);
 		
@@ -35,7 +34,7 @@ public class DetailForm extends Activity{
         save.setOnClickListener(onSave);
 	}
 	
-	private View.OnClickListener onSave = new View.OnClickListener(){	
+	private View.OnClickListener onSave = new View.OnClickListener() {	
 		public void onClick(View v) {
 			String type = null;
 			

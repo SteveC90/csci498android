@@ -33,12 +33,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainActivity extends TabActivity {
 	
 	Cursor model = null;
-	RestaurantAdapter adapter=null;
+	RestaurantAdapter adapter = null;
 	
-	EditText name=null;
-	EditText address=null;
-	EditText notes=null;
-	RadioGroup types=null;
+	EditText name = null;
+	EditText address = null;
+	EditText notes = null;
+	RadioGroup types = null;
 	
 	RestaurantHelper helper;
 	
@@ -85,7 +85,6 @@ public class MainActivity extends TabActivity {
     @Override
     public void onDestroy(){
     	super.onDestroy();
-    	
     	helper.close();
     }
 
@@ -97,11 +96,9 @@ public class MainActivity extends TabActivity {
 				case R.id.sit_down:
 					type = "sit_down";
 					break;
-		
 				case R.id.take_out:
 					type = "take_out";
 					break;
-					
 				case R.id.delivery:
 					type = "delivery";
 					break;
@@ -114,7 +111,14 @@ public class MainActivity extends TabActivity {
 		}
    };
    
-   class RestaurantAdapter extends CursorAdapter{
+   private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+			Intent i = new Intent(MainActivity.this, DetailForm.class);
+			startActivity(i);
+		}
+	};
+   
+   class RestaurantAdapter extends CursorAdapter {
 		RestaurantAdapter(Cursor c){
 			super(MainActivity.this, c);
 		}
@@ -122,7 +126,6 @@ public class MainActivity extends TabActivity {
 		@Override
 		public void bindView(View row, Context ctxt, Cursor c) {
 			RestaurantHolder holder = (RestaurantHolder)row.getTag();
-			
 			holder.populateFrom(c, helper);
 		}
 		
@@ -135,11 +138,11 @@ public class MainActivity extends TabActivity {
 			
 			row.setTag(holder);
 			
-			return(row);
+			return row;
 		}
 	}
 	
-	static class RestaurantHolder{
+   static class RestaurantHolder {
 		private TextView name = null;
 		private TextView address = null;
 		private ImageView icon = null;
@@ -164,11 +167,4 @@ public class MainActivity extends TabActivity {
 		}
 	}
 	
-	private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-			Intent i = new Intent(MainActivity.this, DetailForm.class);
-			startActivity(i);
-
-		}
-	};
 }

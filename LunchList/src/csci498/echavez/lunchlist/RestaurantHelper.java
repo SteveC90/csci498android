@@ -21,7 +21,7 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, address TEXT, type TEXT, notes TEXT);");
 	}
 	
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVewsion){}
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVewsion) {}
 	
 	public void insert(String name, String address, String type, String notes){
 		ContentValues cv = new ContentValues();
@@ -38,19 +38,19 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 		return getReadableDatabase().rawQuery("SELECT _id, name, address, type, notes FROM restaurants ORDER BY name", null);
 	}
 	
-	public String getName(Cursor c){
+	public String getName(Cursor c) {
 		return c.getString(1);
 	}
 	
-	public String getAddress(Cursor c){
+	public String getAddress(Cursor c) {
 		return c.getString(2);
 	}
 	
-	public String getType(Cursor c){
+	public String getType(Cursor c) {
 		return c.getString(3);
 	}
 	
-	public String getNotes(Cursor c){
+	public String getNotes(Cursor c) {
 		return c.getString(4);
 	}
 	
