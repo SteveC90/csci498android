@@ -17,6 +17,8 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class MainActivity extends ListActivity {
 	
@@ -32,6 +34,8 @@ public class MainActivity extends ListActivity {
 	
 	RestaurantHelper helper;
 	
+	private SharedPreferences prefs;
+	
     @SuppressWarnings("deprecation")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +45,13 @@ public class MainActivity extends ListActivity {
         helper = new RestaurantHelper(this);
         
         name = (EditText)findViewById(R.id.name);
-        model = helper.getAll();
+        model = helper.getAll(prefs.getString("sort_order", "name"));
         startManagingCursor(model);
         adapter = new RestaurantAdapter(model);
         
         setListAdapter(adapter);
+        
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
     }
     
     @Override
