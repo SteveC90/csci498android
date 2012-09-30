@@ -43,6 +43,7 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
         
         helper = new RestaurantHelper(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         
         name = (EditText)findViewById(R.id.name);
         model = helper.getAll(prefs.getString("sort_order", "name"));
@@ -51,7 +52,7 @@ public class MainActivity extends ListActivity {
         
         setListAdapter(adapter);
         
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.registerOnSharedPreferenceChangeListener(prefListener);
     }
     
     @Override
@@ -87,6 +88,16 @@ public class MainActivity extends ListActivity {
     	
     	return super.onOptionsItemSelected(item);
     }
+    
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener =
+    		new SharedPreferences.OnSharedPreferenceChangeListener() {
+				
+				public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+					if (key.equals("sort_order")){
+						
+					}
+				}
+			};
     
     class RestaurantAdapter extends CursorAdapter {
 		@SuppressWarnings("deprecation")
