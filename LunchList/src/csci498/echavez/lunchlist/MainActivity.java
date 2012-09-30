@@ -8,10 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.app.ListActivity;
 import android.content.Context;
@@ -27,16 +25,15 @@ public class MainActivity extends ListActivity {
 	Cursor model = null;
 	RestaurantAdapter adapter = null;
 	
-	EditText name = null;
+	/*EditText name = null;
 	EditText address = null;
 	EditText notes = null;
-	RadioGroup types = null;
+	RadioGroup types = null;*/
 	
 	RestaurantHelper helper;
 	
 	private SharedPreferences prefs;
 	
-    @SuppressWarnings("deprecation")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +42,7 @@ public class MainActivity extends ListActivity {
         helper = new RestaurantHelper(this);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         
-        name = (EditText)findViewById(R.id.name);
-        model = helper.getAll(prefs.getString("sort_order", "name"));
-        startManagingCursor(model);
-        adapter = new RestaurantAdapter(model);
-        
-        setListAdapter(adapter);
+        initList();
         
         prefs.registerOnSharedPreferenceChangeListener(prefListener);
     }
@@ -89,12 +81,25 @@ public class MainActivity extends ListActivity {
     	return super.onOptionsItemSelected(item);
     }
     
+    @SuppressWarnings("deprecation")
+	private void initList() {
+    	if(model!=null){
+    		stopManagingCursor(model);
+    		model.close();
+    	}
+    	
+    	model = helper.getAll(prefs.getString("sort_order", "name"));
+    	startManagingCursor(model);
+    	adapter = new RestaurantAdapter(model);
+    	setListAdapter(adapter);
+    }
+    
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener =
     		new SharedPreferences.OnSharedPreferenceChangeListener() {
 				
 				public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 					if (key.equals("sort_order")){
-						
+						initList();
 					}
 				}
 			};
