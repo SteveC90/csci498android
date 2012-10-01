@@ -33,18 +33,19 @@
                     android:text="@string/delivery" />
             </RadioGroup>
         </TableRow>
-
-        <TableRow>
-            <TextView android:text="@string/notes_label" />
-            <EditText
-                android:id="@+id/notes"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:lines="2"
-                android:maxLines="2"
-                android:scrollHorizontally="false" />
-        </TableRow>
-
+        
+        <EditText
+            android:id="@+id/notes"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:maxLines="2"
+            android:scrollHorizontally="false" 
+            android:hint="@string/hint_notes"/>
+        
+		<EditText
+		    android:id="@+id/feed"
+		    android:hint="@string/hint_feed" />
         <Button
             android:id="@+id/save"
             android:layout_width="match_parent"

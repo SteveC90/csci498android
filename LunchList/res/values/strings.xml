@@ -12,5 +12,7 @@
     <string name="take_out">Take-out</string>
     <string name="sit_down">Sit-Down</string>
     <string name="delivery">Delivery</string>
+    <string name="hint_notes">Notes</string>
+    <string name="hint_feed">Feed URL</string>
 
 </resources>
