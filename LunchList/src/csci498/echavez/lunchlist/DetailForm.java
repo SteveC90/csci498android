@@ -84,10 +84,10 @@ public class DetailForm extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if(item.getItemId() == R.id.feed){
 			if (isNetworkAvailable()){
-				/*Intent i = new Intent(this, FeedActivity.class);
+				Intent i = new Intent(this, FeedActivity.class);
 				
 				i.putExtra(FeedActivity.FEED_URL, feed.getText().toString());
-				startActivity(i); */
+				startActivity(i); 
 			} else {
 				Toast.makeText(this, "Sorry, the Internet is not available", Toast.LENGTH_LONG).show();
 			}
