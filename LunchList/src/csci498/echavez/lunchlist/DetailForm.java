@@ -9,8 +9,6 @@ import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -38,10 +36,6 @@ public class DetailForm extends Activity {
         feed = (EditText)findViewById(R.id.feed);
         types = (RadioGroup)findViewById(R.id.types);
         
-        Button save = (Button)findViewById(R.id.save);
-        
-        save.setOnClickListener(onSave);
-        
         restaurantId = getIntent().getStringExtra(MainActivity.ID_EXTRA);
         if(restaurantId!=null){
         	load();
@@ -52,6 +46,13 @@ public class DetailForm extends Activity {
 	public void onDestroy() {
 		super.onDestroy();
 		helper.close();
+	}
+	
+	@Override
+	public void onPause(){
+		save();
+		
+		super.onPause();
 	}
 	
 	@Override
@@ -127,30 +128,28 @@ public class DetailForm extends Activity {
 		c.close();
 	}
 	
-	private View.OnClickListener onSave = new View.OnClickListener() {	
-		public void onClick(View v) {
-			String type = null;
-			
-			switch(types.getCheckedRadioButtonId()) {
-				case R.id.sit_down:
-					type = "sit_down";
-					break;
-				case R.id.take_out:
-					type = "take_out";
-					break;
-				case R.id.delivery:
-					type = "delivery";
-					break;
-			}
-			
-			if(restaurantId == null) {
-				helper.insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
-			} else {
-				helper.update(restaurantId, name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
-			}
-			
-			finish();
+	private void save(){
+		String type = null;
+		
+		switch(types.getCheckedRadioButtonId()) {
+			case R.id.sit_down:
+				type = "sit_down";
+				break;
+			case R.id.take_out:
+				type = "take_out";
+				break;
+			case R.id.delivery:
+				type = "delivery";
+				break;
 		}
-	};
+		
+		if(restaurantId == null) {
+			helper.insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
+		} else {
+			helper.update(restaurantId, name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
+		}
+		
+		finish();
+	}
 
 }
