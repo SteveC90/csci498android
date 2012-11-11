@@ -1,30 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="csci498.echavez.lunchlist"
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="false" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETE" />D
-    
-    <application
-        android:icon="@drawable/food"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+    <application android:label="@string/app_name" >
         <uses-library android:name="com.google.android.maps" />
+
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:name=".LunchList"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,11 +32,23 @@
         </activity>
         <activity android:name=".FeedActivity" >
         </activity>
+        <activity android:name=".RestaurantMap" >
+        </activity>
+        <activity android:name=".AlarmActivity" >
+        </activity>
 
         <service android:name=".FeedService" >
         </service>
-        <activity android:name=".RestaurantMap">
-        </activity>
+
+        <receiver
+            android:name=".OnBootReceiver"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".OnAlarmReceiver" >
+        </receiver>
     </application>
 
 </manifest>

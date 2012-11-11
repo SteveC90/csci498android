@@ -17,5 +17,6 @@
     <string name="menu_feed_title">RSS Feed</string>
     <string name="location_label">Location:</string>
     <string name="not_set">(not set)</string>
+    <string name="lunch_time">It\'s time for lunch</string>
 
 </resources>
