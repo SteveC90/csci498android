@@ -43,7 +43,8 @@
 
         <service android:name=".FeedService" >
         </service>
-
+		<service android:name=".WidgetService">
+		</service>
         <receiver
             android:name=".OnBootReceiver"
             android:enabled="false" >
