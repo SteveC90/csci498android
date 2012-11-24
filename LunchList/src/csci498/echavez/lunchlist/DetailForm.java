@@ -153,7 +153,7 @@ public class DetailForm extends Activity {
 		} else if (helper.getType(c).equals("take_out")){
 			types.check(R.id.take_out);
 		} else {
-			types.check(R.id.take_out);
+			types.check(R.id.delivery);
 		}
 		
 		latitude = helper.getLatitude(c);
