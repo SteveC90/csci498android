@@ -27,4 +27,11 @@
 uncheck for a full-screen notice"
         android:title="Use a Notification" />
 
+    <RingtonePreference 
+        android:key="alarm ringtone"
+        android:title="Alarm Ringtone"
+        android:summary="Indicate the ringtone to play when it is lunchtime"
+        android:showSilent="true"
+        android:dependency="alarm"/>
+    
 </PreferenceScreen>
