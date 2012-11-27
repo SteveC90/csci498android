@@ -103,8 +103,8 @@ public class DetailFragment extends Fragment {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(item.getItemId() == R.id.feed){
-			if (isNetworkAvailable()){
+		if(item.getItemId() == R.id.feed) {
+			if (isNetworkAvailable()) {
 				Intent i = new Intent(getActivity(), FeedActivity.class);
 				
 				i.putExtra(FeedActivity.FEED_URL, feed.getText().toString());
@@ -114,10 +114,10 @@ public class DetailFragment extends Fragment {
 			}
 			
 			return true;
-		} else if (item.getItemId() == R.id.location){
+		} else if (item.getItemId() == R.id.location) {
 			locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, onLocationChange);
 			return true;
-		} else if (item.getItemId() == R.id.map){
+		} else if (item.getItemId() == R.id.map) {
 			Intent i = new Intent(getActivity(), RestaurantMap.class);
 			i.putExtra(RestaurantMap.EXTRA_LATITUDE, latitude);
 			i.putExtra(RestaurantMap.EXTRA_LONGITUDE, longitude);
@@ -125,6 +125,8 @@ public class DetailFragment extends Fragment {
 			
 			startActivity(i);
 			return true;
+		} else if (item.getItemId() == R.id.help) {
+			startActivity(new Intent(getActivity(), HelpPage.class));
 		}
 		
 		return super.onOptionsItemSelected(item);

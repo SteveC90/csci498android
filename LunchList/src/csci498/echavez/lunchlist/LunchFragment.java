@@ -78,13 +78,15 @@ public class LunchFragment extends ListFragment {
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	if (item.getItemId() == R.id.add){
+    	if (item.getItemId() == R.id.add) {
     		startActivity(new Intent(getActivity(), DetailForm.class));
     		return true;
     	} else if (item.getItemId() == R.id.prefs) {
     		startActivity( new Intent(getActivity(), EditPreferences.class));
     		return true;
-    	}
+    	} else if (item.getItemId() == R.id.help) {
+			startActivity(new Intent(getActivity(), HelpPage.class));
+		}
     	
     	return super.onOptionsItemSelected(item);
     }
