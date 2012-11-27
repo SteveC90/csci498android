@@ -21,6 +21,7 @@ public class FeedService extends IntentService {
 	
 	@Override
 	public void onHandleIntent(Intent i) {
+		@SuppressWarnings("resource")
 		RSSReader reader = new RSSReader();
 		Messenger messenger = (Messenger)i.getExtras().get(EXTRA_MESSENGER);
 		Message msg = Message.obtain();

@@ -92,7 +92,7 @@ public class LunchFragment extends ListFragment {
     }
 
 	private void initList() {
-    	if(model!=null){
+    	if (model!=null) {
     		model.close();
     	}
     	
@@ -113,7 +113,7 @@ public class LunchFragment extends ListFragment {
     		new SharedPreferences.OnSharedPreferenceChangeListener() {
 				
 				public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-					if (key.equals("sort_order")){
+					if (key.equals("sort_order")) {
 						initList();
 					}
 				}
@@ -132,7 +132,7 @@ public class LunchFragment extends ListFragment {
 		}
 		
 		@Override
-		public View newView(Context ctxt, Cursor c, ViewGroup parent){
+		public View newView(Context ctxt, Cursor c, ViewGroup parent) {
 			LayoutInflater inflater = getActivity().getLayoutInflater();
 			View row = inflater.inflate(R.layout.row, parent, false);
 			
@@ -149,17 +149,17 @@ public class LunchFragment extends ListFragment {
 		private TextView address = null;
 		private ImageView icon = null;
 		
-		RestaurantHolder(View row){
+		RestaurantHolder(View row) {
 			name = (TextView)row.findViewById(R.id.title);
 			address = (TextView)row.findViewById(R.id.address);
 			icon = (ImageView)row.findViewById(R.id.icon);
 		}
 		
-		void populateFrom(Cursor c, RestaurantHelper helper){
+		void populateFrom(Cursor c, RestaurantHelper helper) {
 			name.setText(helper.getName(c));
 			address.setText(helper.getAddress(c));
 			
-			if(helper.getType(c).equals("sit_down")){
+			if (helper.getType(c).equals("sit_down")){
 				icon.setImageResource(R.drawable.ball_red);
 			} else if (helper.getType(c).equals("take_out")){
 				icon.setImageResource(R.drawable.ball_yellow);

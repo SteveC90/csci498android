@@ -2,7 +2,6 @@ package csci498.echavez.lunchlist;
 
 import org.mcsoxford.rss.RSSFeed;
 import org.mcsoxford.rss.RSSItem;
-//import org.mcsoxford.rss.RSSReader;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -11,12 +10,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+//import org.mcsoxford.rss.RSSReader;
 
 
 public class FeedActivity extends ListActivity {
@@ -26,12 +25,12 @@ public class FeedActivity extends ListActivity {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onCreate(Bundle savedInstanceState){
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		state = (InstanceState)getLastNonConfigurationInstance();
 		
-		if(state == null) {
+		if (state == null) {
 			state = new InstanceState();
 			state.handler = new FeedHandler(this);
 			
@@ -42,11 +41,11 @@ public class FeedActivity extends ListActivity {
 			
 			startService(i);
 		} else {
-			if(state.handler != null) {
+			if (state.handler != null) {
 				state.handler.attach(this);
 			}
 			
-			if(state.feed != null) {
+			if (state.feed != null) {
 				setFeed(state.feed);
 			}
 		}
@@ -54,7 +53,7 @@ public class FeedActivity extends ListActivity {
 	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
-		if(state.handler != null) {
+		if (state.handler != null) {
 			state.handler.detach();
 		}
 		
@@ -124,7 +123,7 @@ public class FeedActivity extends ListActivity {
 		public View getView (int position, View convertView, ViewGroup parent) {
 			View row = convertView;
 			
-			if(row == null) {
+			if (row == null) {
 				LayoutInflater inflater = getLayoutInflater();
 				
 				row = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);

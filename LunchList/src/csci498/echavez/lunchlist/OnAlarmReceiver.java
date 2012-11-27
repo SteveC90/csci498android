@@ -15,6 +15,7 @@ public class OnAlarmReceiver extends BroadcastReceiver {
 	
 	private static final int NOTIFY_ME_ID = 1337;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onReceive(Context ctxt, Intent intent) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctxt);

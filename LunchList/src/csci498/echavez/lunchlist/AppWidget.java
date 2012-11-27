@@ -12,8 +12,8 @@ import android.widget.RemoteViews;
 public class AppWidget extends AppWidgetProvider {
 	
 	@Override
-	public void onUpdate(Context ctxt, AppWidgetManager mgr, int[] appWidgetIds){
-		if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB){
+	public void onUpdate(Context ctxt, AppWidgetManager mgr, int[] appWidgetIds) {
+		if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
 			onHCUpdate(ctxt, mgr, appWidgetIds);
 		} else {
 			ctxt.startService(new Intent(ctxt, WidgetService.class));
@@ -21,6 +21,7 @@ public class AppWidget extends AppWidgetProvider {
 			
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void onHCUpdate(Context ctxt, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		for (int i=0; i<appWidgetIds.length; i++) {
 			Intent svcIntent = new Intent(ctxt, ListWidgetService.class);

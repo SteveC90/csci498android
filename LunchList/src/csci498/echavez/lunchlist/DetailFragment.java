@@ -78,7 +78,7 @@ public class DetailFragment extends Fragment {
 	}
 	
 	@Override
-	public void onPause(){
+	public void onPause() {
 		save();
 		getHelper().close();
 		locMgr.removeUpdates(onLocationChange);
@@ -103,7 +103,7 @@ public class DetailFragment extends Fragment {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(item.getItemId() == R.id.feed) {
+		if (item.getItemId() == R.id.feed) {
 			if (isNetworkAvailable()) {
 				Intent i = new Intent(getActivity(), FeedActivity.class);
 				
@@ -112,11 +112,12 @@ public class DetailFragment extends Fragment {
 			} else {
 				Toast.makeText(getActivity(), "Sorry, the Internet is not available", Toast.LENGTH_LONG).show();
 			}
-			
 			return true;
+			
 		} else if (item.getItemId() == R.id.location) {
 			locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, onLocationChange);
 			return true;
+			
 		} else if (item.getItemId() == R.id.map) {
 			Intent i = new Intent(getActivity(), RestaurantMap.class);
 			i.putExtra(RestaurantMap.EXTRA_LATITUDE, latitude);
@@ -125,6 +126,7 @@ public class DetailFragment extends Fragment {
 			
 			startActivity(i);
 			return true;
+			
 		} else if (item.getItemId() == R.id.help) {
 			startActivity(new Intent(getActivity(), HelpPage.class));
 		}
@@ -134,7 +136,7 @@ public class DetailFragment extends Fragment {
 	
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
-		if(restaurantId == null) {
+		if (restaurantId == null) {
 			menu.findItem(R.id.location).setEnabled(false);
 			menu.findItem(R.id.map).setEnabled(false);
 		}
@@ -183,7 +185,7 @@ public class DetailFragment extends Fragment {
 		notes.setText(getHelper().getNotes(c));
 		feed.setText(getHelper().getFeed(c));
 		
-		if (getHelper().getType(c).equals("sit_down")){
+		if (getHelper().getType(c).equals("sit_down")) {
 			types.check(R.id.sit_down);
 		} else if (getHelper().getType(c).equals("take_out")){
 			types.check(R.id.take_out);
@@ -199,10 +201,10 @@ public class DetailFragment extends Fragment {
 		c.close();
 	}
 	
-	private void save(){
+	private void save() {
 		String type = null;
 		
-		switch(types.getCheckedRadioButtonId()) {
+		switch (types.getCheckedRadioButtonId()) {
 			case R.id.sit_down:
 				type = "sit_down";
 				break;
@@ -214,7 +216,7 @@ public class DetailFragment extends Fragment {
 				break;
 		}
 		
-		if(restaurantId == null) {
+		if (restaurantId == null) {
 			getHelper().insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
 		} else {
 			getHelper().update(restaurantId, name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());

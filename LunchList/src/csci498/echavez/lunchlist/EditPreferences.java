@@ -36,7 +36,7 @@ public class EditPreferences extends PreferenceActivity {
 	SharedPreferences.OnSharedPreferenceChangeListener onChange =
 			new SharedPreferences.OnSharedPreferenceChangeListener() {
 			public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-				if("alarm".equals(key)) {
+				if ("alarm".equals(key)) {
 					boolean enabled = prefs.getBoolean(key, false);
 					int flag = (enabled ?
 									PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
@@ -45,7 +45,7 @@ public class EditPreferences extends PreferenceActivity {
 					
 					getPackageManager().setComponentEnabledSetting(component, flag, PackageManager.DONT_KILL_APP);
 					
-					if(enabled) {
+					if (enabled) {
 						OnBootReceiver.setAlarm(EditPreferences.this);
 					} else {
 						OnBootReceiver.cancelAlarm(EditPreferences.this);
